@@ -25,7 +25,7 @@
           <li class="nav-item"> <a class="nav-link" href="#technology">Technology</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#upcoming"><i><b>Upcoming Features</b></i></a></li>
           <li class="nav-item"> <a class="nav-link" href="#devs"><b>Developers</b></a></li>
-            <li class="nav-item"> <a class="nav-link" href="../ILPH_Staffs/login.html"><b>Login</b></a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ url_for('login') }}"><b>Login</b></a></li>
         </ul><i>
         </i>
       </div><i>
@@ -57,7 +57,7 @@
       </div><b>
       </b>
     </div>
-    <a id="statisticButton" class="btn btn-secondary" href="general_Statistics.html">See more indepth Analysis</a>
+    <a id="statisticButton" class="btn btn-secondary" href="{{ url_for('statistics') }}">See more indepth Analysis</a>
   </div>
   <div class="py-5 text-center" id="technology" style="">
     <div class="container">
@@ -67,29 +67,29 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-6 col-lg-3 p-4"> <img class="img-fluid d-block mb-3 mx-auto" src="../icons/angular.png" alt="Card image cap">
+        <div class="col-6 col-lg-3 p-4"> <img class="img-fluid d-block mb-3 mx-auto" src="{{ url_for('static', filename='icons/angular.png') }}" alt="Card image cap">
           <h4> <b>Angular 7</b></h4>
           <p class="mb-3">Front-end technology</p>
           <p class="mb-0">Use Angular 7, Bootstrap and Javascript to develop Front-end of the application.</p>
         </div>
-        <div class="col-6 col-lg-3 p-4"> <img class="img-fluid d-block mb-3 mx-auto" src="../icons/postgresql.png" style="padding-bottom:20px" alt="Card image cap">
+        <div class="col-6 col-lg-3 p-4"> <img class="img-fluid d-block mb-3 mx-auto" src="{{ url_for('static', filename='icons/postgresql.png') }}" style="padding-bottom:20px" alt="Card image cap">
           <h4> <b>Postgresql</b></h4>
           <p class="mb-3">Database system</p>
           <p class="mb-0">Store all data into Postgresql database.</p>
         </div>
-        <div class="col-6 col-lg-3 p-4"> <img class="img-fluid d-block mb-3 mx-auto" src="../icons/python.png" style="padding-bottom:15px" width="200">
+        <div class="col-6 col-lg-3 p-4"> <img class="img-fluid d-block mb-3 mx-auto" src="{{ url_for('static', filename='icons/python.png') }}" style="padding-bottom:15px" width="200">
           <h4> <b>Python</b></h4>
           <p class="mb-3">Backend Technology</p>
           <p class="mb-0" style="">Use Python as backend to connect to database, API and optimize the security of the application.</p>
         </div>
-        <div class="col-6 col-lg-3 p-4"> <img class="img-fluid d-block mb-3 mx-auto" src="../icons/sighthound.png" width="200" style="padding-bottom:15px;">
+        <div class="col-6 col-lg-3 p-4"> <img class="img-fluid d-block mb-3 mx-auto" src="{{ url_for('static', filename='icons/sighthound.png') }}" width="200" style="padding-bottom:15px;">
           <h4> <b>Sighthound</b></h4>
           <p class="mb-3">API for Detection</p>
           <p class="mb-0">API to detect car brands, color and license plates.&nbsp;</p>
         </div>
       </div>
     </div>
-    <a id="statisticButton" class="btn btn-secondary" href="general_Technology.html">Steps Breakdown</a>
+    <a id="statisticButton" class="btn btn-secondary" href="{{ url_for('technology') }}">Steps Breakdown</a>
   </div><b>
     <b><i>
         <div id="upcoming" class="pt-5" style="">
@@ -132,8 +132,7 @@
       <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" crossorigin="anonymous" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-      <script src="js/parallax.js"></script>
-      <script src="js/browser.js"></script>
+      
     </b>
   </b>
   <div id="devs" class="py-5 text-center text-white" style="	height: 360px;">
@@ -162,8 +161,8 @@
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" crossorigin="anonymous" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="js/parallax.js"></script>
-  <script src="js/browser.js"></script>
+  <script src="{{ url_for('static', filename='js/parallax.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/browser.js') }}"></script>
 </body>
 
 </html>
