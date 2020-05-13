@@ -1,0 +1,9 @@
+#stepsDiv{
+    background-image: linear-gradient(to right, #ffc3a0,  #ffafbd);	
+    background-position: top left;	
+    background-size: 100%;	
+    background-repeat: repeat;
+}
+#workflowDiagram{
+    background-color: white;
+}

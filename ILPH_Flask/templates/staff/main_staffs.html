@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='staff_css/customize.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAt97rTnR5Eklc1CRXp2qdCg1rQcEuZSww&callback=initMap"
+  type="text/javascript"></script>
+
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="">
+    <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar12">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar12"> <a class="navbar-brand d-none d-md-block" href="#">
+          <img id="logo" src="{{ url_for('static', filename='background/logo.png') }}" alt="Logo" height="30" width="30">
+          <b> ILPH</b>
+        </a>
+        <ul class="navbar-nav  mx-auto">
+          
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item"> <a class="nav-link" href="#">Hello, {{ username }} </a> </li>
+          <li class="nav-item"> <a class="btn btn-primary" href="#">Log Out</a> </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+ 
+  <script>
+  function initMap() {
+  // The location of Uluru
+  var uluru = {lat: -25.344, lng: 131.036};
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map});
+  google.maps.event.trigger(map, "resize");
+}
+
+
+</script>
+  <div class="py-5" style="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-pills">
+            <li class="nav-item"> <a href="" class="active nav-link" data-toggle="pill" data-target="#tabone">Currently Active</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="" data-toggle="pill" data-target="#tabtwo">History</a> </li>
+            <li class="nav-item"> <a href="" class="nav-link" data-toggle="pill" data-target="#tabthree">Add Case</a> </li>
+            <li class="nav-item"> <a href="" class="nav-link" data-toggle="pill" data-target="#tabfour">Personal Information</a> </li>
+          </ul>
+          <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tabone" role="tabpanel">
+              <div class="col-md-12">
+                <div class="table-responsive">  <table id="data_table_active" class="table table-striped table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">Case ID</th>
+                        <th scope="col">Posted By</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Vehicle's Plate</th>
+                        <th scope="col">Vehicle's Type</th>
+                        <th>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for a,b,c,d,e,f in active_list %} 
+                      <tr>
+                        <td id="caseIDs">{{ a }}</td>
+                        <td>{{ b }}</td>
+                        <td>{{ c }}</td>
+                        <td>{{ d }}</td>
+                        <td>{{ e }}</td>
+                        <td>{{ f }}</td>
+                        <td> 
+                        <button  data-toggle="modal" data-target="#theModal" class="btn btn-primary popModalActive" value="Submit"><i class="fa fa-eye"></i>View Details </button>
+                        </td>
+                      
+                      
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tabtwo" role="tabpanel">
+              <div class="col-md-12">
+                <div class="table-responsive"> <table id="data_table_close"  class="table table-striped table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">Case ID</th>
+                        <th scope="col">Posted By</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Vehicle's Plate</th>
+                        <th scope="col">Vehicle's Type</th>
+                        <th>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     {% for a,b,c,d,e,f in close_list %}
+                      <tr>
+                        <td id="caseIDs">{{ a }}</td>
+                        <td>{{ b }}</td>
+                        <td>{{ c }}</td>
+                        <td>{{ d }}</td>
+                        <td>{{ e }}</td>
+                        <td>{{ f }}</td>
+                        <td>
+                          
+                            <button  data-toggle="modal" data-target="#theModal" class="btn btn-primary popModalClose" value="Submit"><i class="fa fa-eye"></i>View Details </button>
+                        </td>
+                      </tr>
+                       {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tabthree" role="tabpanel">
+              <div class="col-md-12 dark-strip">
+                <form id="c_form-h" class="" method="post">
+                  <div class="form-group row"> <label class="col-2 col-form-label">User ID</label>
+                    <div class="col-10">
+                      <input type="text" readonly="readonly"  class="form-control" id="case_user_id" name="case_user_id" value = "{{ user_id }}"> </div>
+                  </div>
+
+
+                  <div class="form-group row"> <label class="col-2 col-form-label">Date</label>
+                    <div class="col-10">
+                      <input type="text" readonly="readonly"   class="form-control" id="case_date" name = "case_date"> </div>
+                  </div>
+                  
+                  <div class="form-group row"> <label class="col-2 col-form-label">Status</label>
+                    <div class="col-10">
+                     
+
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                          <input type="radio" name="case_status" id="option1" value="Searching" checked=""> Searching </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" name="case_status" id="option2" value="Found"> Found </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" name="case_status" id="option3" value="Close"> Close</label>
+                      </div>
+                    
+                    
+                    
+                    </div>
+                  </div>
+                  
+                  <div class="form-group row"> <label class="col-2 col-form-label">Vehicle's Plate</label>
+                    <div class="col-10">
+                      <input type="text" class="form-control" id="case_vPlate" name = "case_vPlate"> </div>
+                  </div>
+
+                  <div class="form-group row"> <label class="col-2 col-form-label">Vehicle's Type</label>
+                    <div class="col-10">
+                      <input type="text" class="form-control" id="case_vTypee" name = "case_vType"> </div>
+                  </div>
+
+                   <div class="form-group row"> <label class="col-2 col-form-label">Description</label>
+                    <div class="col-10" >
+                      <textarea class="form-control" id="case_description" name = "case_description" placeholder="Some more descriptions would be helpful."></textarea>
+                    
+                    
+                    </div>
+                  </div>
+
+                
+
+
+                  <button name="add_case" type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div>
+            </div>
+            <div class="tab-pane fade active show" id="tabfour" role="tabpanel">
+              <form id="c_form-h" class="">
+                <h3 class="">Personal Information </h3>
+                <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">User ID</label>
+                  <div class="col-10">
+                    <input class="form-control" id="info_userID" name="info_userID"> </div>
+                </div>
+                <div class="form-group row"> <label class="col-2 col-form-label">Username</label>
+                  <div class="col-10">
+                    <input class="form-control" id="info_username" name="info_username"> </div>
+                </div>
+                <div class="form-group row"> <label class="col-2 col-form-label">Name</label>
+                  <div class="col-10">
+                    <input class="form-control" id="info_name" name="info_name"> </div>
+                </div>
+                <div class="form-group row"> <label class="col-2 col-form-label">Age</label>
+                  <div class="col-10">
+                    <input class="form-control" id="info_age" name="info_age"> </div>
+                </div>
+                <div class="form-group row"> <label class="col-2 col-form-label">Address</label>
+                  <div class="col-10">
+                    <input class="form-control" id="info_address" name="info_address"> </div>
+                </div>
+                <div class="form-group row"> <label class="col-2 col-form-label">Role</label>
+                  <div class="col-10">
+                    <input class="form-control" id="info_role" name="info_role"> </div>
+                </div>
+                <div class="form-group row"> <label class="col-2 col-form-label">Phone Number</label>
+                  <div class="col-10">
+                    <input class="form-control" id="info_phone" name="info_phone"> </div>
+                </div>
+                <h3 class="">Change Password </h3>
+                <div class="form-group row"> <label for="info_prevPassword" class="col-2 col-form-label">Current Password</label>
+                  <div class="col-10">
+                    <input id="info_prevPassword" name="info_prevPassword" type="password" class="form-control"> </div>
+                </div>
+                <div class="form-group row"> <label for="info_newPass" class="col-2 col-form-label">New Password</label>
+                  <div class="col-10">
+                    <input class="form-control" id="info_newPass" name="info_newPass" type="password"> </div>
+                </div>
+                <div class="form-group row"> <label for="info_retypePass" class="col-2 col-form-label">Retype New Password</label>
+                  <div class="col-10">
+                    <input class="form-control" id="info_retypePass" name="info_retypePass" type="password"> </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-12" style="text-align:center">
+                    <button type="submit" class="btn btn-primary">Submit</button></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+ 
+
+
+
+
+
+  <div id="theModal" class="modal">
+    <div role="document" class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" contenteditable="true">Case Details</h5> <button type="button" class="close" data-dismiss="modal"> <span>×</span> </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row"> <label class="col-2 col-form-label" for="inputmailh">Case ID</label>
+            <div class="col-10">
+              <input id="caseID" disabled="" class="form-control" > </div>
+          </div>
+          <div class="form-group row"> <label class="col-2 col-form-label">Posted </label>
+            <div class="col-10">
+              <input id="postedBy" disabled="" class="form-control"> </div>
+          </div>
+          <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">Date</label>
+            <div class="col-10">
+              <input id="date" class="form-control" disabled=""> </div>
+          </div>
+          <div class="form-group row"> <label  class="col-2 col-form-label">Status</label>
+            <div class="col-10">
+              <input id="status" class="form-control"> 
+              
+            </div>
+          </div>
+          <div class="form-group row"> <label  class="col-2 col-form-label">Plate</label>
+            <div class="col-10">
+              <input id="vPlate" class="form-control" disabled=""> </div>
+          </div>
+          <div class="form-group row"> <label  class="col-2 col-form-label">Type</label>
+            <div class="col-10">
+              <input id="vType" class="form-control" disabled=""> </div>
+          </div>
+          <div class="form-group row"> <label  class="col-2 col-form-label">Description</label>
+            <div class="col-10">
+              <p id="description" class="" style=""></p>
+            </div>
+          
+          
+          
+          
+          
+          </div>
+        <div class="form-group row">
+            <div class="col-12">
+             <div class="location-map" id="location-map">
+                <div style="width: 400px; height: 400px;" id="map_canvas"></div>
+              </div>
+            </div>
+            
+          <script>
+          
+$(document).ready(function() {
+  var map = null;
+  var myMarker;
+  var myLatlng;
+  function initMap() {
+    myLatlng = new google.maps.LatLng(-25.344, 131.036);
+
+    var myOptions = {
+      zoom: 12,
+      zoomControl: true,
+      center: myLatlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+    myMarker = new google.maps.Marker({
+      position: myLatlng
+    });
+    myMarker.setMap(map);
+  }
+
+  // Re-init map before show modal
+  $('#theModal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget);
+    initMap();
+  });
+
+  // Trigger map resize event after modal shown
+  $('#theModal').on('shown.bs.modal', function() {
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(myLatlng);
+  });
+});
+  
+  
+          </script>
+          </div>
+          <div class="modal-footer"> 
+            <button type="button" class="btn btn-primary">Save changes</button> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+          </div>
+        </div>
+      </div>
+      
+
+      
+      
+      <script>
+
+      var recvListActive = {{active_list | tojson}}
+      var recvListClose = {{close_list | tojson}}
+      var activeDescription = {{activeDescription | tojson}}
+      var closeDescription = {{closeDescription | tojson}}
+
+      var today = new Date();
+      var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      var dateTime = date;
+      document.getElementById("case_date").value = dateTime;
+        $(".popModalActive").click(function() {
+          var $row = $(this).closest('tr');    // Find the row
+          var $text = $row.find('#caseIDs').text(); // Find the text
+          console.log($text);
+          for(let i = 0; i < recvListActive.length; i++){
+            if(recvListActive[i][0] == $text){
+              document.getElementById("caseID").value = recvListActive[i][0];
+              document.getElementById("postedBy").value = recvListActive[i][1];
+              document.getElementById("date").value = recvListActive[i][2];
+              document.getElementById("status").value = recvListActive[i][3];
+              document.getElementById("vPlate").value = recvListActive[i][4];
+              document.getElementById("vType").value = recvListActive[i][5];
+              document.getElementById("description").innerHTML = activeDescription[i][1];
+              console.log(recvListActive[i][0]);
+              console.log(recvListActive[i][1]);
+              console.log(recvListActive[i][2]);
+              console.log(recvListActive[i][3]);
+              console.log(recvListActive[i][4]);
+              console.log(recvListActive[i][5]);
+              console.log(activeDescription[i][1]);
+
+            }
+            else{
+              console.log("Not this");
+            }
+          }
+        });
+
+          $(".popModalClose").click(function() {
+          var $row = $(this).closest('tr');    // Find the row
+          var $text = $row.find('#caseIDs').text(); // Find the text
+          
+          for(let i = 0; i < recvListClose.length; i++){
+            if(recvListClose[i][0] == $text){
+              document.getElementById("caseID").value = recvListClose[i][0];
+              document.getElementById("postedBy").value = recvListClose[i][1];
+              document.getElementById("date").value = recvListClose[i][2];
+              document.getElementById("status").value = recvListClose[i][3];
+              document.getElementById("vPlate").value = recvListClose[i][4];
+              document.getElementById("vType").value = recvListClose[i][5];
+              document.getElementById("description").innerHTML = closeDescription[i][1];
+            }
+            else{
+              console.log("Not this");
+            }
+          }
+        });
+
+        $(document).ready(function() {
+        $('#data_table_active').DataTable();
+         $('#data_table_close').DataTable();
+        } );
+
+
+    
+
+
+
+
+
+
+
+
+      </script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
+    </div>
+  </div>
+   
+</body>
+
+</html>
