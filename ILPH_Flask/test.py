@@ -8,6 +8,7 @@ app = Flask(__name__)
 # create a database connection
 conn = None
 username = None
+changePass = None
 """ use with conn to do select 
     with conn:
 
@@ -30,6 +31,7 @@ def technology():
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
+    changePass = None
     error = None
     if request.method == 'POST':
         if authenticate(request.form['username'], request.form['password']):
@@ -46,7 +48,7 @@ def login():
 
 @app.route('/home/<username>/<user_id>', methods=['GET', 'POST'])
 def home(username, user_id):
-
+    changePass = None
 
     if 'add_case' in request.form:
         userID = request.form['case_user_id']
@@ -55,20 +57,52 @@ def home(username, user_id):
         vPlate = request.form['case_vPlate']
         vType = request.form['case_vType']
         desc = request.form['case_description']
+        """
         print("Newly add: ", userID)
         print("Newly add: ", date)
         print("Newly add: ", status)
         print("Newly add: ", vPlate)
         print("Newly add: ", vType)
         print("Newly add: ", desc)
+        """
         insertNewCase(userID, date, status, vPlate, vType, desc)
+    if 'update_case' in request.form:
+        caseID = request.form['caseID']
+        status = request.form['update_status']
+        updateCaseStatus(caseID,status)
+        """
+        print("The CASE ID: " + caseID)
+        print("The Status: " + status)
+        """
+    
+    if 'personal_info' in request.form:
+        print("THIS IS THE FORM")
         
+        uname = request.form['info_username']
+        uname = uname.lower()
+        oldPass = request.form['info_prevPassword']
+        newPass = request.form['info_newPass']
+
+        check = authenticate(uname, oldPass)
+
+        if check == True: 
+            
+            updatePassword(user_id, newPass)
+            changePass = "Successfully Changed Password"
+        else:
+            print("Not OKKKKKK")
+            changePass = "Failed to Change Password. Please recheck your current password and refill form"
+
 
     ActiveResult = getAllActiveCases()
     activeDescription = getActiveDescription()
+    activeCoordinate = getActiveCoordinate()
     ClosedResult = getAllClosedCases()
     closeDescription = getCloseDescription()
-    return render_template("staff/main_staffs.html",  active_list = ActiveResult, close_list = ClosedResult, activeDescription = activeDescription, closeDescription = closeDescription, username = username, user_id = user_id);
+    closeCoordinate = getClosedCoordinate()
+    userInfo = getUserInfo(user_id)
+
+    return render_template("staff/main_staffs.html",  active_list = ActiveResult, close_list = ClosedResult, activeDescription = activeDescription, active_coor = activeCoordinate, closeDescription = closeDescription, close_coor = closeCoordinate, username = username, user_id = user_id, userInfo = userInfo, changePass = changePass);
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=5000, debug=True)

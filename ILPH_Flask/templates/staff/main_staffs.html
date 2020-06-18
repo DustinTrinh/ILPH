@@ -36,20 +36,7 @@
     </div>
   </nav>
  
-  <script>
-  function initMap() {
-  // The location of Uluru
-  var uluru = {lat: -25.344, lng: 131.036};
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uluru});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: uluru, map: map});
-  google.maps.event.trigger(map, "resize");
-}
 
-
-</script>
   <div class="py-5" style="">
     <div class="container">
       <div class="row">
@@ -134,7 +121,7 @@
             </div>
             <div class="tab-pane fade" id="tabthree" role="tabpanel">
               <div class="col-md-12 dark-strip">
-                <form id="c_form-h" class="" method="post">
+                <form id="addCase" class="" method="post">
                   <div class="form-group row"> <label class="col-2 col-form-label">User ID</label>
                     <div class="col-10">
                       <input type="text" readonly="readonly"  class="form-control" id="case_user_id" name="case_user_id" value = "{{ user_id }}"> </div>
@@ -175,7 +162,7 @@
                   </div>
 
                    <div class="form-group row"> <label class="col-2 col-form-label">Description</label>
-                    <div class="col-10" >
+                    <div class="col-10 col-form-label" >
                       <textarea class="form-control" id="case_description" name = "case_description" placeholder="Some more descriptions would be helpful."></textarea>
                     
                     
@@ -189,53 +176,57 @@
                 </form>
               </div>
             </div>
-            <div class="tab-pane fade active show" id="tabfour" role="tabpanel">
-              <form id="c_form-h" class="">
+            <div class="tab-pane fade" id="tabfour" role="tabpanel">
+              <form id="personalDetail" class="" method="post">
                 <h3 class="">Personal Information </h3>
                 <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">User ID</label>
                   <div class="col-10">
-                    <input class="form-control" id="info_userID" name="info_userID"> </div>
+                    <input class="form-control" id="info_userID" name="info_userID" readonly="readonly" value= {{user_id}}> </div>
                 </div>
                 <div class="form-group row"> <label class="col-2 col-form-label">Username</label>
                   <div class="col-10">
-                    <input class="form-control" id="info_username" name="info_username"> </div>
+                    <input class="form-control" id="info_username" name="info_username" readonly="readonly" value= {{username}}> </div>
                 </div>
                 <div class="form-group row"> <label class="col-2 col-form-label">Name</label>
                   <div class="col-10">
-                    <input class="form-control" id="info_name" name="info_name"> </div>
+                    <input class="form-control" id="info_name" name="info_name" readonly="readonly"> </div>
                 </div>
                 <div class="form-group row"> <label class="col-2 col-form-label">Age</label>
                   <div class="col-10">
-                    <input class="form-control" id="info_age" name="info_age"> </div>
+                    <input class="form-control" id="info_age" name="info_age" readonly="readonly"> </div>
                 </div>
-                <div class="form-group row"> <label class="col-2 col-form-label">Address</label>
+                <div class="form-group row"> <label class="col-2 col-form-label" readonly="readonly">Address</label>
                   <div class="col-10">
-                    <input class="form-control" id="info_address" name="info_address"> </div>
+                    <input class="form-control" id="info_address" name="info_address" readonly="readonly"> </div>
                 </div>
                 <div class="form-group row"> <label class="col-2 col-form-label">Role</label>
                   <div class="col-10">
-                    <input class="form-control" id="info_role" name="info_role"> </div>
+                    <input class="form-control" id="info_role" name="info_role" readonly="readonly"> </div>
                 </div>
                 <div class="form-group row"> <label class="col-2 col-form-label">Phone Number</label>
                   <div class="col-10">
-                    <input class="form-control" id="info_phone" name="info_phone"> </div>
+                    <input class="form-control" id="info_phone" name="info_phone" readonly="readonly"> </div>
                 </div>
                 <h3 class="">Change Password </h3>
                 <div class="form-group row"> <label for="info_prevPassword" class="col-2 col-form-label">Current Password</label>
                   <div class="col-10">
-                    <input id="info_prevPassword" name="info_prevPassword" type="password" class="form-control"> </div>
+                    <input id="info_prevPassword" name="info_prevPassword" type="password" class="form-control" required> </div>
                 </div>
                 <div class="form-group row"> <label for="info_newPass" class="col-2 col-form-label">New Password</label>
                   <div class="col-10">
-                    <input class="form-control" id="info_newPass" name="info_newPass" type="password"> </div>
+                    <input class="form-control" id="info_newPass" name="info_newPass" type="password" required> </div>
                 </div>
-                <div class="form-group row"> <label for="info_retypePass" class="col-2 col-form-label">Retype New Password</label>
+                <div class="form-group row"> 
+                  <label for="info_retypePass" class="col-2 col-form-label">Retype New Password</label>
                   <div class="col-10">
-                    <input class="form-control" id="info_retypePass" name="info_retypePass" type="password"> </div>
+                    <input class="form-control" id="info_retypePass" name="info_retypePass" type="password" required> </div>
+                  <div class="col-12" style="text-align:center">
+                    <h6 id="personal_error" hidden="hidden"> Hello Hi How rr u?</h6>
+                  </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-12" style="text-align:center">
-                    <button type="submit" class="btn btn-primary">Submit</button></div>
+                    <button  type="submit" name="personal_info" id="personal_info" class="btn btn-primary" disabled>Submit</button></div>
                 </div>
               </form>
             </div>
@@ -259,21 +250,29 @@
           <h5 class="modal-title" contenteditable="true">Case Details</h5> <button type="button" class="close" data-dismiss="modal"> <span>×</span> </button>
         </div>
         <div class="modal-body">
-          <div class="form-group row"> <label class="col-2 col-form-label" for="inputmailh">Case ID</label>
+        <form id="caseDeetail" class="" method="post">
+          <div class="form-group row"> <label class="col-2 col-form-label">Case ID</label>
             <div class="col-10">
-              <input id="caseID" disabled="" class="form-control" > </div>
+              <input type="text" id="caseID" name="caseID" readonly="readonly" class="form-control" > </div>
           </div>
           <div class="form-group row"> <label class="col-2 col-form-label">Posted </label>
             <div class="col-10">
               <input id="postedBy" disabled="" class="form-control"> </div>
           </div>
-          <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">Date</label>
+          <div class="form-group row"> <label  class="col-2 col-form-label">Date</label>
             <div class="col-10">
               <input id="date" class="form-control" disabled=""> </div>
           </div>
           <div class="form-group row"> <label  class="col-2 col-form-label">Status</label>
             <div class="col-10">
-              <input id="status" class="form-control"> 
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-primary" id="search_label">
+                          <input type="radio" name="update_status" id="update_search" checked="" value="Searching"> Searching </label>
+                        <label class="btn btn-primary" id="found_label">
+                          <input type="radio" name="update_status" id="update_found" checked="" value="Found"> Found </label>
+                        <label class="btn btn-primary" id="close_label">
+                          <input type="radio" name="update_status" id="update_close" checked="" value="Close"> Close</label>
+                      </div>  
               
             </div>
           </div>
@@ -286,81 +285,94 @@
               <input id="vType" class="form-control" disabled=""> </div>
           </div>
           <div class="form-group row"> <label  class="col-2 col-form-label">Description</label>
-            <div class="col-10">
+            <div class="col-10 col-form-label">
               <p id="description" class="" style=""></p>
             </div>
-          
-          
-          
-          
-          
           </div>
+          
+          <div class="form-group row"> <label class="col-2 col-form-label" >Latitude</label>
+              <div class="col-3">
+                <input class="form-control" id="latitude" > </div>
+              <div class="col-2"></div>
+              <label  class="col-2 col-form-label">Longitude</label>
+              <div class="col-3">
+                <input class="form-control" id="longitude"> </div>
+            </div>
+
+
+
+
         <div class="form-group row">
             <div class="col-12">
              <div class="location-map" id="location-map">
-                <div style="width: 400px; height: 400px;" id="map_canvas"></div>
+                <div style="height: 450px;" id="map_canvas"></div>
               </div>
             </div>
             
-          <script>
-          
-$(document).ready(function() {
-  var map = null;
-  var myMarker;
-  var myLatlng;
-  function initMap() {
-    myLatlng = new google.maps.LatLng(-25.344, 131.036);
-
-    var myOptions = {
-      zoom: 12,
-      zoomControl: true,
-      center: myLatlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-    myMarker = new google.maps.Marker({
-      position: myLatlng
-    });
-    myMarker.setMap(map);
-  }
-
-  // Re-init map before show modal
-  $('#theModal').on('show.bs.modal', function(event) {
-    var button = $(event.relatedTarget);
-    initMap();
-  });
-
-  // Trigger map resize event after modal shown
-  $('#theModal').on('shown.bs.modal', function() {
-    google.maps.event.trigger(map, "resize");
-    map.setCenter(myLatlng);
-  });
-});
-  
-  
-          </script>
           </div>
           <div class="modal-footer"> 
-            <button type="button" class="btn btn-primary">Save changes</button> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+            <button type="submit" name="update_case" class="btn btn-primary">Save changes</button> <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
           </div>
+          </form>
         </div>
       </div>
       
 
+
       
       
       <script>
+      
+      function getLat(lat){
+        return lat;
+      }
 
+      function getLong(long){
+        return long;
+      }
+      var userInformation = {{userInfo | tojson}}
       var recvListActive = {{active_list | tojson}}
       var recvListClose = {{close_list | tojson}}
       var activeDescription = {{activeDescription | tojson}}
       var closeDescription = {{closeDescription | tojson}}
-
+      var activeCoor = {{active_coor | tojson}}
+      var closeCoor = {{close_coor | tojson}}
+      var globalLat = -25.344;
+      var globalLong = 131.036;
       var today = new Date();
       var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       var dateTime = date;
+
+      var newPass =  document.getElementById("info_newPass").value;
+      var retypePass = document.getElementById("info_retypePass").value;
+
+      $('#info_newPass, #info_retypePass').on('keyup', function () {
+        if ($('#info_newPass').val() == $('#info_retypePass').val()) {
+          document.getElementById("personal_info").disabled = false;
+          $('#personal_error').html('New Password Matching').css('color', 'green');     
+        } 
+        else {
+          document.getElementById("personal_error").hidden = false;
+          $('#personal_error').html('New Password Not Matching').css('color', 'red'); 
+          document.getElementById("personal_info").disabled = true;
+        }
+    });
+
+      document.getElementById("info_name").value = userInformation[0][0];
+      document.getElementById("info_age").value = userInformation[0][1];
+      document.getElementById("info_address").value = userInformation[0][2];
+      document.getElementById("info_phone").value = userInformation[0][3];
+      document.getElementById("info_role").value = userInformation[0][4];
+
+
+      function setLat(lat){
+        globalLat = lat;
+      }
+
+      function setLong(long){
+        globalLong = long;
+      }
+
       document.getElementById("case_date").value = dateTime;
         $(".popModalActive").click(function() {
           var $row = $(this).closest('tr');    // Find the row
@@ -371,9 +383,32 @@ $(document).ready(function() {
               document.getElementById("caseID").value = recvListActive[i][0];
               document.getElementById("postedBy").value = recvListActive[i][1];
               document.getElementById("date").value = recvListActive[i][2];
-              document.getElementById("status").value = recvListActive[i][3];
+              
+              if(recvListActive[i][3] == "Searching"){
+                document.getElementById("search_label").className = "btn btn-primary focus active";
+                document.getElementById("found_label").className = "btn btn-primary";
+                document.getElementById("close_label").className = "btn btn-primary";
+                console.log("It is searching");
+              }
+              else if(recvListActive[i][3] == "Found"){
+                document.getElementById("found_label").className = "btn btn-primary focus active";
+                document.getElementById("close_label").className = "btn btn-primary";
+                document.getElementById("search_label").className = "btn btn-primary";
+                console.log("It is Found");
+              }
+              else if(recvListActive[i][3] == "Close"){
+                document.getElementById("close_label").className = "btn btn-primary focus active";
+                document.getElementById("search_label").className = "btn btn-primary";
+                document.getElementById("found_label").className = "btn btn-primary";
+                console.log("It is Close");
+              }
+              //document.getElementById("status").value = recvListActive[i][3];
+
+
               document.getElementById("vPlate").value = recvListActive[i][4];
               document.getElementById("vType").value = recvListActive[i][5];
+              document.getElementById("latitude").value = activeCoor[i][1];
+              document.getElementById("longitude").value = activeCoor[i][2];
               document.getElementById("description").innerHTML = activeDescription[i][1];
               console.log(recvListActive[i][0]);
               console.log(recvListActive[i][1]);
@@ -382,12 +417,17 @@ $(document).ready(function() {
               console.log(recvListActive[i][4]);
               console.log(recvListActive[i][5]);
               console.log(activeDescription[i][1]);
-
+              console.log(activeCoor[i][1]);
+              console.log(activeCoor[i][2]);
+              setLat(activeCoor[i][1]);
+              setLong(activeCoor[i][2])
+              initMap();
             }
             else{
               console.log("Not this");
             }
           }
+          
         });
 
           $(".popModalClose").click(function() {
@@ -399,31 +439,85 @@ $(document).ready(function() {
               document.getElementById("caseID").value = recvListClose[i][0];
               document.getElementById("postedBy").value = recvListClose[i][1];
               document.getElementById("date").value = recvListClose[i][2];
-              document.getElementById("status").value = recvListClose[i][3];
+                if(recvListClose[i][3] == "Searching"){
+                document.getElementById("search_label").className = "btn btn-primary focus active";
+                document.getElementById("found_label").className = "btn btn-primary";
+                document.getElementById("close_label").className = "btn btn-primary";
+                console.log("It is searching");
+              }
+              else if(recvListClose[i][3] == "Found"){
+                document.getElementById("found_label").className = "btn btn-primary focus active";
+                document.getElementById("close_label").className = "btn btn-primary";
+                document.getElementById("search_label").className = "btn btn-primary";
+                console.log("It is Found");
+              }
+              else if(recvListClose[i][3] == "Close"){
+                document.getElementById("close_label").className = "btn btn-primary focus active";
+                document.getElementById("search_label").className = "btn btn-primary";
+                document.getElementById("found_label").className = "btn btn-primary";
+                console.log("It is Close");
+              }
               document.getElementById("vPlate").value = recvListClose[i][4];
               document.getElementById("vType").value = recvListClose[i][5];
+              document.getElementById("latitude").value = closeCoor[i][1];
+              document.getElementById("longitude").value = closeCoor[i][2];
               document.getElementById("description").innerHTML = closeDescription[i][1];
+              initMap();
             }
             else{
               console.log("Not this");
             }
           }
+          initMap();
         });
 
         $(document).ready(function() {
         $('#data_table_active').DataTable();
          $('#data_table_close').DataTable();
+
+          if( "{{changePass}}" != "" ){
+            alert( "{{changePass}}" );
+          }
+          else{}
+
+         
         } );
 
 
-    
+        
+                var map = null;
+                var myMarker;
+                var myLatlng;
+                function initMap() {
+                  myLatlng = new google.maps.LatLng(globalLat, globalLong);
 
+                  var myOptions = {
+                    zoom: 12,
+                    zoomControl: true,
+                    center: myLatlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                  };
 
+                  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
+                  myMarker = new google.maps.Marker({
+                    position: myLatlng
+                  });
+                  myMarker.setMap(map);
+                }
 
+                // Re-init map before show modal
+                $('#theModal').on('show.bs.modal', function(event) {
+                  var button = $(event.relatedTarget);
+                  initMap();
+                });
 
-
-
+                // Trigger map resize event after modal shown
+                $('#theModal').on('shown.bs.modal', function() {
+                  google.maps.event.trigger(map, "resize");
+                  map.setCenter(myLatlng);
+                });
+              
 
       </script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
